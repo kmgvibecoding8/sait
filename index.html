@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Волна — отели у моря, в горах и на озёрах для любого бюджета</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Unbounded:wght@500;600&display=swap&subset=cyrillic">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --ink:#10343F; --muted:#486873; --panel:rgba(255,255,255,.82); --card:#FFFFFF;
+  --line:rgba(16,52,63,.14); --accent:#C9452F; --accent-ink:#FFFFFF; --sea:#0E6F8C;
+  --eco:#1F7A52; --mid:#176E98; --lux:#8A5A12;
+  --bg-top:#CDEFF6; --bg-bot:#F1FAF8; --bg-m1:#B4D9E4; --bg-m2:#98C8D8; --bg-sea:#7FCADB; --bg-wave:#5CB8CE; --bg-leaf:#6FBF8F;
+  --font-head:'Unbounded','Trebuchet MS','Segoe UI',sans-serif;
+  --font-body:'Manrope','Segoe UI',Roboto,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#E6F4F7; --muted:#9FC3CD; --panel:rgba(9,36,47,.8); --card:#0F2F3C;
+    --line:rgba(255,255,255,.14); --accent:#FF7B63; --accent-ink:#2A0C06; --sea:#5CC3DE;
+    --eco:#6FD3A0; --mid:#7CCBEE; --lux:#F0BE6B;
+    --bg-top:#07202B; --bg-bot:#0B2B38; --bg-m1:#0F3544; --bg-m2:#134457; --bg-sea:#14566A; --bg-wave:#1B6C84; --bg-leaf:#1D5B45;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#E6F4F7; --muted:#9FC3CD; --panel:rgba(9,36,47,.8); --card:#0F2F3C;
+  --line:rgba(255,255,255,.14); --accent:#FF7B63; --accent-ink:#2A0C06; --sea:#5CC3DE;
+  --eco:#6FD3A0; --mid:#7CCBEE; --lux:#F0BE6B;
+  --bg-top:#07202B; --bg-bot:#0B2B38; --bg-m1:#0F3544; --bg-m2:#134457; --bg-sea:#14566A; --bg-wave:#1B6C84; --bg-leaf:#1D5B45;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 76px);scroll-behavior:smooth}
+html,body{margin:0}
+body{font-family:var(--font-body);color:var(--ink);background:var(--bg-bot);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+/* fixed nature backdrop */
+.backdrop{position:fixed;inset:0;z-index:-1;background:linear-gradient(var(--bg-top),var(--bg-bot))}
+.backdrop svg{position:absolute;inset:0;width:100%;height:100%}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--panel);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1180px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-family:var(--font-head);font-weight:600;font-size:1.25rem;text-decoration:none;display:flex;align-items:center;gap:10px;letter-spacing:.01em}
+.logo svg{width:34px;height:34px;flex:none}
+nav.main{display:flex;gap:6px;align-items:center}
+nav.main a{text-decoration:none;font-weight:700;font-size:.95rem;padding:8px 14px;border-radius:999px}
+nav.main a:hover{background:var(--line)}
+@media(max-width:560px){nav.main a.opt{display:none}}
+
+/* hero */
+.hero{position:relative;height:clamp(560px,88vh,820px);overflow:hidden;color:#fff}
+.hero>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero-copy{position:absolute;inset:0 0 auto 0;z-index:2}
+.hero-copy .in{max-width:1180px;margin:0 auto;padding:clamp(36px,8vh,84px) 20px 0}
+.hero h1{font-family:var(--font-head);font-weight:600;font-size:clamp(2rem,5.2vw,4.1rem);line-height:1.1;margin:0 0 18px;max-width:15em;letter-spacing:-.01em;text-shadow:0 2px 24px rgba(5,40,58,.45)}
+.hero p{font-size:clamp(1.05rem,2vw,1.3rem);max-width:34em;margin:0 0 28px;text-shadow:0 1px 14px rgba(5,40,58,.55)}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{font:inherit;font-weight:700;border:0;cursor:pointer;border-radius:999px;padding:14px 26px;text-decoration:none;display:inline-block;transition:transform .15s}
+.btn:active{transform:scale(.97)}
+.btn.main{background:var(--accent);color:var(--accent-ink)}
+.btn.glass{background:rgba(255,255,255,.22);color:#fff;border:1.5px solid rgba(255,255,255,.7);backdrop-filter:blur(6px)}
+.wave{animation:drift var(--d) linear infinite}
+@keyframes drift{to{transform:translateX(calc(-1 * var(--L)))}}
+.bird{animation:fly 26s linear infinite}
+@keyframes fly{from{transform:translateX(-120px)}to{transform:translateX(1700px)}}
+@media (prefers-reduced-motion:reduce){.wave,.bird{animation:none}html{scroll-behavior:auto}}
+
+/* sections */
+main{position:relative}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+section.block{padding:clamp(40px,7vw,80px) 0 0}
+.panel{background:var(--panel);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:30px;padding:clamp(22px,4vw,44px)}
+h2{font-family:var(--font-head);font-weight:600;font-size:clamp(1.55rem,3.2vw,2.3rem);line-height:1.2;margin:0 0 10px}
+.lead{color:var(--muted);max-width:40em;margin:0 0 26px}
+
+/* budget picker */
+.tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+@media(max-width:820px){.tiers{grid-template-columns:repeat(2,1fr)}}
+.tier{font:inherit;text-align:left;cursor:pointer;color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:20px;padding:14px 16px;display:flex;flex-direction:column;gap:2px;transition:border-color .15s,transform .15s}
+.tier:hover{transform:translateY(-2px)}
+.tier b{font-size:1.05rem}
+.tier span{font-size:.88rem;color:var(--muted)}
+.tier[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent)}
+.tools{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:22px}
+.tools label{font-weight:700;font-size:.92rem;display:flex;align-items:center;gap:8px}
+select{font:inherit;color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:12px;padding:8px 12px}
+#count{margin-left:auto;color:var(--muted);font-weight:500}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
+.card{font:inherit;color:inherit;text-align:left;padding:0;cursor:pointer;background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 18px 40px -18px rgba(8,60,80,.45)}
+.pic{position:relative;aspect-ratio:400/260;display:block;overflow:hidden}
+.pic svg{width:100%;height:100%;display:block}
+.badge{position:absolute;top:12px;left:12px;background:#fff;color:var(--c);font-weight:700;font-size:.8rem;padding:4px 12px;border-radius:999px}
+.rate{position:absolute;top:12px;right:12px;display:flex;align-items:center;gap:6px;background:rgba(8,40,56,.82);color:#fff;font-weight:700;font-size:.82rem;padding:4px 11px;border-radius:999px}
+.rate svg{width:15px;height:15px;flex:none}
+.rate .sep{width:1px;height:14px;background:rgba(255,255,255,.4);margin:0 2px}
+.rev{display:flex;align-items:center;gap:6px;background:color-mix(in srgb,var(--sea) 14%,transparent);color:var(--ink);font-weight:700;font-size:.82rem;padding:5px 11px 5px 9px;border-radius:999px}
+.rev svg{width:16px;height:16px;flex:none}
+.body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.body h3{font-family:var(--font-head);font-weight:500;font-size:1.02rem;line-height:1.3;margin:0}
+.place{color:var(--muted);font-size:.9rem}
+.short{font-size:.93rem;margin:2px 0 8px}
+.price{margin-top:auto;display:flex;align-items:baseline;gap:6px}
+.price b{font-family:var(--font-head);font-weight:600;font-size:1.3rem}
+.price span{color:var(--muted);font-size:.88rem}
+.empty{padding:30px;text-align:center;color:var(--muted)}
+
+/* destinations */
+.dest{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.tile{font:inherit;color:#fff;text-align:left;border:0;padding:0;cursor:pointer;position:relative;border-radius:26px;overflow:hidden;aspect-ratio:4/3.3}
+.tile svg{position:absolute;inset:0;width:100%;height:100%;transition:transform .5s}
+.tile:hover svg{transform:scale(1.05)}
+.tile .cap{position:absolute;left:0;right:0;bottom:0;padding:44px 20px 18px;background:linear-gradient(transparent,rgba(5,35,48,.82))}
+.tile h3{font-family:var(--font-head);font-weight:500;font-size:1.25rem;margin:0}
+.tile span{font-size:.92rem;opacity:.95}
+
+/* tips */
+.tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.tip{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;border-top:6px solid var(--c)}
+.tip h3{font-family:var(--font-head);font-weight:500;font-size:1.05rem;margin:0 0 10px}
+.tip ul{margin:0;padding-left:1.1em;color:var(--muted)}
+.tip li{margin-bottom:6px}
+
+footer{margin-top:70px;background:linear-gradient(transparent,rgba(5,40,58,.9) 30%);color:#EAF7FA;padding:70px 0 calc(34px + env(safe-area-inset-bottom,0px))}
+footer p{margin:0 0 6px;opacity:.9;font-size:.92rem}
+footer .logo{margin-bottom:12px;color:#fff}
+
+/* dialog */
+dialog{border:0;padding:0;border-radius:28px;max-width:min(760px,94vw);width:100%;color:var(--ink);background:var(--card);max-height:92vh;overflow:auto}
+dialog::backdrop{background:rgba(4,30,42,.62);backdrop-filter:blur(3px)}
+.d-pic{aspect-ratio:400/200;position:relative}
+.d-pic svg{width:100%;height:100%;display:block}
+.x{position:absolute;top:12px;right:12px;width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:#10343F;font-size:1.4rem;cursor:pointer;line-height:1}
+.d-body{padding:22px 26px 28px}
+.d-body h3{font-family:var(--font-head);font-weight:600;font-size:1.5rem;margin:0 0 4px;line-height:1.25}
+.d-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px;padding:0;list-style:none}
+.chips li{background:color-mix(in srgb,var(--sea) 14%,transparent);border-radius:999px;padding:5px 13px;font-size:.88rem;font-weight:500}
+.book{display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:18px}
+.book label{font-weight:700;display:flex;align-items:center;gap:8px}
+.book .tot b{font-family:var(--font-head);font-size:1.6rem}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);opacity:0;pointer-events:none;background:#10343F;color:#fff;padding:12px 20px;border-radius:14px;z-index:60;max-width:90vw;transition:.25s}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+
+<div class="backdrop" aria-hidden="true">
+  <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
+    <path d="M0 640 L120 520 L210 590 L340 440 L470 600 L600 500 L760 620 L900 470 L1040 590 L1180 480 L1320 580 L1440 520 V900 H0Z" fill="var(--bg-m1)"/>
+    <path d="M0 720 L160 620 L280 700 L430 600 L580 710 L760 630 L940 720 L1100 640 L1260 720 L1440 650 V900 H0Z" fill="var(--bg-m2)"/>
+    <rect y="740" width="1440" height="160" fill="var(--bg-sea)"/>
+    <path d="M0 770 q90 -22 180 0 t180 0 t180 0 t180 0 t180 0 t180 0 t180 0 t180 0 V900 H0Z" fill="var(--bg-wave)" opacity=".7"/>
+    <path d="M0 830 q110 -26 220 0 t220 0 t220 0 t220 0 t220 0 t220 0 V900 H0Z" fill="var(--bg-wave)" opacity=".9"/>
+    <g fill="var(--bg-leaf)" opacity=".55">
+      <path d="M0 0 Q160 40 230 190 Q120 120 0 110Z"/><path d="M0 0 Q80 90 70 260 Q20 150 0 150Z"/>
+      <path d="M1440 0 Q1280 40 1210 190 Q1320 120 1440 110Z"/><path d="M1440 0 Q1360 90 1370 260 Q1420 150 1440 150Z"/>
+    </g>
+  </svg>
+</div>
+
+<header class="top">
+  <div class="top-in">
+    <a class="logo" href="#top" aria-label="Волна — на главную">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#0E6F8C"/><circle cx="26" cy="13" r="5" fill="#FFD479"/><path d="M0 25 q5 -6 10 0 t10 0 t10 0 t10 0 V40 H0Z" fill="#fff" opacity=".9"/><path d="M0 30 q5 -6 10 0 t10 0 t10 0 t10 0 V40 H0Z" fill="#7FD1E4"/></svg>
+      Волна
+    </a>
+    <nav class="main" aria-label="Разделы">
+      <a href="#hotels">Отели</a>
+      <a class="opt" href="#destinations">Направления</a>
+      <a class="opt" href="#tips">Советы</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero" id="hero">
+    <div class="hero-copy">
+      <div class="in">
+        <h1>Море, горы и озёра — для любого бюджета</h1>
+        <p>Отели от 1 800 до 24 000 ₽ за ночь. Выберите свой уровень, и мы покажем, где остановиться.</p>
+        <div class="btns">
+          <a class="btn main" href="#hotels">Подобрать отель</a>
+          <a class="btn glass" href="#destinations">Смотреть направления</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="block" id="hotels">
+    <div class="wrap"><div class="panel">
+      <h2>Отели на любой кошелёк</h2>
+      <p class="lead">Нажмите на отель, чтобы увидеть описание, удобства и стоимость за выбранное число ночей.</p>
+      <div class="tiers" id="tiers" role="group" aria-label="Бюджет"></div>
+      <div class="tools">
+        <label>Отдых
+          <select id="type">
+            <option value="all">Любой</option><option value="sea">Море</option><option value="mountain">Горы</option><option value="lake">Озёра</option><option value="forest">Леса</option>
+          </select>
+        </label>
+        <label>Сортировка
+          <select id="sort">
+            <option value="asc">Сначала дешёвые</option><option value="desc">Сначала дорогие</option><option value="rate">По рейтингу</option>
+          </select>
+        </label>
+        <div id="count" aria-live="polite"></div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div></div>
+  </section>
+
+  <section class="block" id="destinations">
+    <div class="wrap"><div class="panel">
+      <h2>Куда поехать</h2>
+      <p class="lead">Четыре вида отдыха. Выберите плитку — каталог отелей отфильтруется.</p>
+      <div class="dest" id="dest"></div>
+    </div></div>
+  </section>
+
+  <section class="block" id="tips">
+    <div class="wrap"><div class="panel">
+      <h2>Как сэкономить или отдохнуть на полную</h2>
+      <p class="lead">Короткие советы для каждого бюджета.</p>
+      <div class="tips">
+        <div class="tip" style="--c:var(--eco)"><h3>Эконом, до 3 000 ₽</h3><ul>
+          <li>Ездите в межсезонье: места те же, цены заметно ниже.</li>
+          <li>Берите номер с кухней — готовить самим выгоднее, чем питаться в кафе.</li>
+          <li>Выбирайте будни: в выходные цены обычно выше.</li></ul></div>
+        <div class="tip" style="--c:var(--mid)"><h3>Средний, 3 000–9 000 ₽</h3><ul>
+          <li>Ищите отель в 5–10 минутах пешком от пляжа или подъёмника — это дешевле первой линии.</li>
+          <li>Тариф с завтраком часто выгоднее, чем завтрак отдельно.</li>
+          <li>Сравните отмену бронирования: гибкий тариф стоит немного дороже, но спокойнее.</li></ul></div>
+        <div class="tip" style="--c:var(--lux)"><h3>Люкс, от 9 000 ₽</h3><ul>
+          <li>В высокий сезон бронируйте за 2–3 месяца.</li>
+          <li>Уточните, что входит: спа, трансфер, питание.</li>
+          <li>Напишите в отель заранее о дате заезда — часто можно договориться о раннем заселении.</li></ul></div>
+      </div>
+    </div></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#top"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#0E6F8C"/><circle cx="26" cy="13" r="5" fill="#FFD479"/><path d="M0 25 q5 -6 10 0 t10 0 t10 0 t10 0 V40 H0Z" fill="#fff" opacity=".9"/><path d="M0 30 q5 -6 10 0 t10 0 t10 0 t10 0 V40 H0Z" fill="#7FD1E4"/></svg>Волна</a>
+    <p>Это демонстрационный сайт: названия отелей, цены и рейтинги вымышлены и приведены для примера.</p>
+    <p>Иллюстрации нарисованы векторно и заменяются реальными фотографиями отелей.</p>
+  </div>
+</footer>
+
+<dialog id="dlg" aria-labelledby="d-title"></dialog>
+<div id="toast" role="status"></div>
+
+<script>
+/* ---------- helpers ---------- */
+let uid=0;
+const rng=s=>()=>{s=(s*16807)%2147483647;return (s-1)/2147483646};
+const CHAT='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H11l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" fill="#0E6F8C"/><circle cx="8" cy="10.5" r="1.3" fill="#fff"/><circle cx="12" cy="10.5" r="1.3" fill="#fff"/><circle cx="16" cy="10.5" r="1.3" fill="#fff"/></svg>';
+const CHATW=CHAT.replace('fill="#0E6F8C"','fill="#fff"').replace(/(<circle[^>]*?)fill="#fff"/g,'$1fill="#0B3A4C"');
+const plural=(n,one,few,many)=>{const m=n%100,d=n%10;return (m>10&&m<15)?many:d===1?one:(d>1&&d<5)?few:many};
+const reviewsText=n=>n+' '+plural(n,'отзыв','отзыва','отзывов');
+const hotelsText=n=>n+' '+plural(n,'отель','отеля','отелей');
+const money=n=>n.toLocaleString('ru-RU')+' ₽';
+const P={
+  day:{sky:['#4FB0E6','#9ADAF0','#E3F6F8'],sun:'#FFF6BF',sea:['#27A9C4','#0B6E8F'],sand:'#F4DFA8',m1:'#86A9BE',m2:'#5D86A3',hill:'#47A06A',pine:'#1F6B46',wall:'#FFFFFF',roof:'#E8624C'},
+  sunset:{sky:['#6B5BA6','#F28C6B','#FFD9A0'],sun:'#FFEBB0',sea:['#E98A74','#35618F'],sand:'#EBC590',m1:'#9A7BAA',m2:'#6B5593',hill:'#4F8F5C',pine:'#26523E',wall:'#FFF4E6',roof:'#B8453A'},
+  dawn:{sky:['#8CCDE0','#C8E8EC','#FBEBD3'],sun:'#FFF1C9',sea:['#58BAC4','#1F8199'],sand:'#F1DDB4',m1:'#9FC0CC',m2:'#6F9DB0',hill:'#5AA874',pine:'#2A7550',wall:'#FFFFFF',roof:'#D2563F'}
+};
+function pine(x,y,h,c){const w=h*.32;return `<g fill="${c}"><polygon points="${x},${y-h} ${x-w*.8},${y-h*.5} ${x+w*.8},${y-h*.5}"/><polygon points="${x},${y-h*.72} ${x-w},${y-h*.12} ${x+w},${y-h*.12}"/><rect x="${x-h*.04}" y="${y-h*.12}" width="${h*.08}" height="${h*.12}"/></g>`}
+function palm(x,y,s,c){
+  const tx=x+16*s,ty=y-110*s;
+  let o=`<path d="M${x} ${y} Q${x+2*s} ${y-60*s} ${tx} ${ty}" stroke="${c}" stroke-width="${6*s}" fill="none" stroke-linecap="round"/>`;
+  [[-150,.9],[-120,1],[-90,.8],[-55,1],[-25,.9],[10,.7],[-175,.6]].forEach(([a,k])=>{
+    const r=a*Math.PI/180,L=55*s*k,ex=tx+Math.cos(r)*L*1.3,ey=ty+Math.sin(r)*L*.6+L*.55,cx=tx+Math.cos(r)*L*.7,cy=ty+Math.sin(r)*L*.9-12*s;
+    o+=`<path d="M${tx} ${ty} Q${cx} ${cy} ${ex} ${ey}" stroke="${c}" stroke-width="${5*s}" fill="none" stroke-linecap="round"/>`;
+  });
+  return o;
+}
+function hotelB(x,y,w,h,p){
+  let o=`<rect x="${x}" y="${y-h}" width="${w}" height="${h}" rx="3" fill="${p.wall}"/><rect x="${x-4}" y="${y-h-6}" width="${w+8}" height="8" rx="3" fill="${p.roof}"/>`;
+  const cols=Math.floor((w-8)/16),rows=Math.floor((h-12)/16);
+  for(let i=0;i<cols;i++)for(let j=0;j<rows;j++)o+=`<rect x="${x+8+i*16}" y="${y-h+8+j*16}" width="8" height="9" rx="1.5" fill="#2B7A9B" opacity=".75"/>`;
+  return o+`<rect x="${x+w/2-5}" y="${y-14}" width="10" height="14" fill="${p.roof}" rx="1"/>`;
+}
+function chalet(x,y,w,h,p){
+  return `<rect x="${x}" y="${y-h}" width="${w}" height="${h}" fill="#C58B57"/><polygon points="${x-6},${y-h} ${x+w/2},${y-h-h*.75} ${x+w+6},${y-h}" fill="${p.roof}"/><rect x="${x+w/2-6}" y="${y-h*.55}" width="12" height="${h*.55}" fill="#7A4A26"/><rect x="${x+5}" y="${y-h*.8}" width="9" height="9" fill="#FFE9A8"/><rect x="${x+w-14}" y="${y-h*.8}" width="9" height="9" fill="#FFE9A8"/>`;
+}
+function ridge(r,n,minY,base){
+  const pts=[],peaks=[];
+  for(let i=0;i<=n;i++){
+    const x=i*400/n;
+    if(i%2){const y=minY+r()*35;pts.push([x,y]);peaks.push([x,y]);}
+    else pts.push([x,base-25-r()*25]);
+  }
+  return {d:`M0 ${base} `+pts.map(p=>`L${p[0].toFixed(0)} ${p[1].toFixed(0)}`).join(' ')+` L400 ${base} Z`,peaks};
+}
+const snow=peaks=>peaks.map(([x,y])=>`<polygon points="${x},${y} ${x-13},${y+17} ${x-4},${y+13} ${x},${y+20} ${x+5},${y+13} ${x+13},${y+17}" fill="#fff" opacity=".92"/>`).join('');
+
+function scene(type,theme,seed){
+  const p=P[theme],r=rng(seed*97+13),id='g'+(uid++);
+  let s=`<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Иллюстрация: ${({sea:'морской берег',mountain:'горы',lake:'озеро',forest:'лес'})[type]}"><defs>
+    <linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1">${p.sky.map((c,i)=>`<stop offset="${i/(p.sky.length-1)}" stop-color="${c}"/>`).join('')}</linearGradient>
+    <linearGradient id="${id}w" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${p.sea[0]}"/><stop offset="1" stop-color="${p.sea[1]}"/></linearGradient>
+    <clipPath id="${id}c"><rect x="0" y="150" width="400" height="110"/></clipPath></defs>
+    <rect width="400" height="260" fill="url(#${id}s)"/>`;
+  const sx=70+r()*260,sy=45+r()*30,sr=16+r()*8;
+  s+=`<circle cx="${sx}" cy="${sy}" r="${sr*2.2}" fill="${p.sun}" opacity=".3"/><circle cx="${sx}" cy="${sy}" r="${sr}" fill="${p.sun}"/>`;
+  for(let i=0;i<2;i++){const cx=40+r()*320,cy=30+r()*50;s+=`<g fill="#fff" opacity=".75"><ellipse cx="${cx}" cy="${cy}" rx="30" ry="8"/><ellipse cx="${cx+16}" cy="${cy-6}" rx="18" ry="8"/></g>`;}
+  if(type==='sea'){
+    const hz=125+r()*12;
+    s+=`<rect y="${hz}" width="400" height="${260-hz}" fill="url(#${id}w)"/><rect x="${sx-14}" y="${hz}" width="28" height="70" fill="${p.sun}" opacity=".35"/>`;
+    for(let i=0;i<6;i++){const y=hz+10+i*17;s+=`<path d="M${r()*60} ${y} q10 -5 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" stroke="#fff" stroke-width="1.6" fill="none" opacity=".4"/>`;}
+    s+=`<path d="M0 260 L0 212 Q120 188 250 214 T400 204 L400 260Z" fill="${p.sand}"/>`;
+    s+=palm(55+r()*30,225,.62,p.pine);
+    s+=hotelB(215+r()*30,214,92,44,p);
+    s+=`<g><path d="M355 208 v-34" stroke="#8B5A2B" stroke-width="2"/><path d="M335 178 Q355 160 375 178Z" fill="${p.roof}"/></g>`;
+  }
+  else if(type==='mountain'){
+    const a=ridge(r,6,48,195),b=ridge(r,5,92,205);
+    s+=`<path d="${a.d}" fill="${p.m1}"/>${snow(a.peaks)}<path d="${b.d}" fill="${p.m2}"/>${snow(b.peaks.slice(0,2))}`;
+    s+=`<path d="M0 260 L0 200 Q100 168 220 194 T400 184 L400 260Z" fill="${p.hill}"/>`;
+    for(let i=0;i<9;i++){const x=10+i*46+r()*20;if(x>190&&x<300)continue;s+=pine(x,215+r()*35,30+r()*24,p.pine);}
+    s+=chalet(215,236,64,32,p);
+  }
+  else if(type==='lake'){
+    const a=ridge(r,6,70,150);
+    s+=`<path d="${a.d}" fill="${p.m1}"/>${snow(a.peaks)}`;
+    s+=`<rect y="150" width="400" height="110" fill="url(#${id}w)"/><g clip-path="url(#${id}c)" opacity=".35"><path transform="translate(0 300) scale(1 -1)" d="${a.d}" fill="${p.m1}"/></g>`;
+    for(let i=0;i<4;i++){const y=165+i*22;s+=`<path d="M${40+r()*80} ${y} h40 M${220+r()*80} ${y+8} h36" stroke="#fff" stroke-width="1.5" opacity=".35"/>`;}
+    for(let i=0;i<7;i++){s+=pine(r()*100,152+r()*6,24+r()*14,p.pine);s+=pine(300+r()*100,152+r()*6,24+r()*14,p.pine);}
+    s+=chalet(150,152,46,22,p)+pine(210,152,34,p.pine)+pine(138,152,30,p.pine);
+    s+=`<path d="M0 260 L0 210 Q70 215 120 260Z" fill="${p.pine}"/><path d="M400 260 L400 200 Q330 215 290 260Z" fill="${p.pine}"/>`;
+    s+=`<g transform="translate(235 205)"><path d="M0 0 Q22 12 44 0Z" fill="${p.roof}"/><path d="M22 0 V-22 L34 -4Z" fill="#fff"/></g>`;
+  }
+  else {
+    s+=`<g fill="#fff" opacity=".16"><polygon points="${sx},${sy} 40,260 120,260"/><polygon points="${sx},${sy} 170,260 230,260"/><polygon points="${sx},${sy} 280,260 340,260"/></g>`;
+    for(let i=0;i<11;i++)s+=pine(i*38+r()*14,172,70+r()*20,p.pine).replace('<g ','<g opacity=".55" ');
+    for(let i=0;i<9;i++)s+=pine(i*48+r()*16,210,80+r()*20,p.pine).replace('<g ','<g opacity=".8" ');
+    s+=`<path d="M0 260 L0 225 Q120 205 240 226 T400 216 L400 260Z" fill="${p.hill}"/>`;
+    s+=`<g><polygon points="165,246 195,246 180,214" fill="${p.roof}"/><polygon points="180,246 195,246 180,214" fill="#00000022"/><polygon points="215,248 247,248 231,220" fill="#FFE9A8"/></g>`;
+    for(let i=0;i<7;i++){s+=pine(i*66+r()*20-10,262,95+r()*30,'#154733');}
+  }
+  return s+'</svg>';
+}
+
+/* ---------- hero ---------- */
+function wavePath(y,amp,L,count){let d=`M0 ${y} q${L/4} ${-amp} ${L/2} 0`;for(let i=1;i<count*2;i++)d+=` t${L/2} 0`;return d+` V820 H0Z`}
+(function hero(){
+  const dark='#0A3A44';
+  let s=`<svg viewBox="0 0 1440 820" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Закат над морем, горы и пальмы"><defs>
+    <linearGradient id="hs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B4F6C"/><stop offset=".45" stop-color="#2A9DB5"/><stop offset=".78" stop-color="#FFB88A"/><stop offset="1" stop-color="#FFE0B0"/></linearGradient>
+    <linearGradient id="hw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2FA3B8"/><stop offset="1" stop-color="#083F5A"/></linearGradient>
+    <radialGradient id="hg"><stop offset="0" stop-color="#FFF3C4" stop-opacity=".9"/><stop offset="1" stop-color="#FFF3C4" stop-opacity="0"/></radialGradient></defs>
+    <rect width="1440" height="820" fill="url(#hs)"/>
+    <circle cx="1020" cy="500" r="220" fill="url(#hg)"/><circle cx="1020" cy="505" r="62" fill="#FFF1C2"/>
+    <g fill="#fff" opacity=".6"><ellipse cx="300" cy="300" rx="110" ry="16"/><ellipse cx="360" cy="284" rx="66" ry="16"/><ellipse cx="1180" cy="250" rx="130" ry="15"/><ellipse cx="1130" cy="236" rx="70" ry="14"/></g>
+    <path d="M700 560 L820 470 L900 520 L1010 430 L1120 520 L1230 460 L1340 540 L1440 500 V580 H700Z" fill="#6C8FB0" opacity=".7"/>
+    <rect y="560" width="1440" height="260" fill="url(#hw)"/>
+    <path d="M940 560 h160 M960 580 h120 M975 600 h90 M990 620 h60" stroke="#FFF1C2" stroke-width="5" opacity=".6" stroke-linecap="round"/>`;
+  const L1=260,L2=340,L3=420;
+  s+=`<g class="wave" style="--L:${L1}px;--d:14s"><path d="${wavePath(600,12,L1,8)}" fill="#1B8FA8" opacity=".55"/></g>`;
+  s+=`<g class="wave" style="--L:${L2}px;--d:20s"><path d="${wavePath(660,16,L2,7)}" fill="#12728F" opacity=".7"/></g>`;
+  s+=`<g class="wave" style="--L:${L3}px;--d:28s"><path d="${wavePath(730,20,L3,6)}" fill="#0C5575"/></g>`;
+  s+=`<path d="M0 820 L0 745 Q300 700 620 760 T1100 790 Q1300 770 1440 800 V820Z" fill="#F3DFAE"/>`;
+  s+=`<g fill="none" stroke="${dark}" stroke-width="2.4" stroke-linecap="round"><g class="bird" style="animation-delay:-4s"><path d="M200 150 q12 -12 24 0 q12 -12 24 0"/></g><g class="bird" style="animation-delay:-15s"><path d="M120 200 q9 -9 18 0 q9 -9 18 0"/></g></g>`;
+  s+=`<g opacity=".95">${palm(110,810,1.7,dark)}${palm(250,820,1.15,'#0F4A4A')}${palm(1330,812,1.5,dark)}</g>`;
+  s+='</svg>';
+  document.getElementById('hero').insertAdjacentHTML('afterbegin',s);
+})();
+
+/* ---------- data ---------- */
+const H=[
+ {id:1,name:'Хостел «Прибой»',place:'Анапа, Краснодарский край',type:'sea',theme:'day',price:1800,rating:4.4,reviews:312,cls:'Хостел',
+  short:'Светлый хостел в 7 минутах от песчаного пляжа.',
+  desc:'Весёлый хостел для тех, кто приехал за морем, а не за номером. Многоместные комнаты и несколько двухместных, общая кухня, двор с гамаками и столами для настолок. До пляжа идти 7 минут через сквер.',
+  am:['Общая кухня','Wi-Fi','Кондиционер','Стирка','Хранение багажа','Двор с гамаками']},
+ {id:2,name:'Гостевой дом «Сосновый берег»',place:'Сортавала, Карелия',type:'lake',theme:'dawn',price:2400,rating:4.7,reviews:208,cls:'Гостевой дом',
+  short:'Деревянный дом среди сосен в 100 метрах от озера.',
+  desc:'Тёплый дом на берегу Ладоги с видом на хвойный лес. Завтраки из местных продуктов, мангальная зона, прокат лодок и велосипедов. Хозяева подскажут маршруты на острова и к водопадам.',
+  am:['Завтрак','Мангал','Прокат лодок','Парковка','Wi-Fi','Баня за доплату']},
+ {id:3,name:'Эко-домики «Алтайская тропа»',place:'Чемал, Республика Алтай',type:'forest',theme:'day',price:2700,rating:4.6,reviews:164,cls:'Эко-домики',
+  short:'Домики в кедровой роще, рядом река Катунь.',
+  desc:'Небольшие домики на двоих и на четверых в кедровом лесу. Из окон видны горы, до Катуни — пять минут пешком. Рядом начинаются тропы к смотровым площадкам; организуем сплавы и конные прогулки.',
+  am:['Своя кухня','Мангал','Отопление','Парковка','Wi-Fi у ресепшен','Экскурсии']},
+ {id:4,name:'Приют «Эльбрус»',place:'Терскол, Кабардино-Балкария',type:'mountain',theme:'dawn',price:2900,rating:4.3,reviews:127,cls:'Горный приют',
+  short:'Простой приют для тех, кто идёт в горы с рассвета.',
+  desc:'Тёплые комнаты на 2–6 человек, горячий душ и сушилка для снаряжения. Хозяева помогают с маршрутами и трансфером к канатной дороге. Ужин готовят на всех в общем зале.',
+  am:['Сушилка','Горячий душ','Ужин','Трансфер','Хранение снаряжения']},
+ {id:5,name:'Отель «Бриз» 3★',place:'Сочи, Адлер',type:'sea',theme:'day',price:5200,rating:4.5,reviews:894,cls:'Отель 3★',
+  short:'Отель в 5 минутах от пляжа, завтрак включён.',
+  desc:'Уютный отель с бассейном на крыше и кафе на первом этаже. Номера с балконом и кондиционером, большинство — с видом на двор или горы. До пляжа и набережной — около 5 минут пешком.',
+  am:['Завтрак','Бассейн','Кондиционер','Балкон','Wi-Fi','Парковка']},
+ {id:6,name:'Отель «Горное эхо» 3★',place:'Красная Поляна, Сочи',type:'mountain',theme:'dawn',price:6800,rating:4.6,reviews:541,cls:'Отель 3★',
+  short:'Рядом с подъёмниками, зимой и летом.',
+  desc:'Отель в стиле шале в десяти минутах от канатной дороги. Зимой — лыжная комната и ски-бас, летом — пешие тропы и рафтинг. В номерах тёплые полы, на первом этаже — ресторан с кавказской кухней.',
+  am:['Завтрак','Ски-бас','Лыжная комната','Ресторан','Тёплые полы','Wi-Fi']},
+ {id:7,name:'Отель «Байкальская волна» 3★',place:'Листвянка, Иркутская область',type:'lake',theme:'sunset',price:5900,rating:4.5,reviews:376,cls:'Отель 3★',
+  short:'Окна на Байкал, закаты на собственной террасе.',
+  desc:'Отель на высоком берегу с видом на озеро. Терраса для встречи заката, финская сауна, завтраки с омулем и местными ягодами. Отсюда удобно ехать на экскурсии по льду зимой и на катере летом.',
+  am:['Завтрак','Сауна','Терраса','Экскурсии','Wi-Fi','Парковка']},
+ {id:8,name:'Отель «Лагуна» 4★',place:'Ялта, Крым',type:'sea',theme:'sunset',price:7400,rating:4.7,reviews:623,cls:'Отель 4★',
+  short:'Терраса над морем и бассейн с видом на горы.',
+  desc:'Современный отель на склоне над набережной. Бассейн с подогревом, ресторан средиземноморской кухни, номера с видом на море. До пляжа ведёт тропа через сад, до центра Ялты — 10 минут на такси.',
+  am:['Завтрак','Подогреваемый бассейн','Ресторан','Вид на море','Кондиционер','Трансфер']},
+ {id:9,name:'Усадьба «Янтарная роща» 4★',place:'Светлогорск, Калининградская область',type:'forest',theme:'dawn',price:9600,rating:4.7,reviews:219,cls:'Загородный отель 4★',
+  short:'Спа в сосновом лесу и пляж Балтики в 15 минутах.',
+  desc:'Тихий отель среди сосен с большим спа-комплексом: хаммам, бассейн, массаж. Номера в светлых тонах, ужин из местных продуктов. До песчаного пляжа Балтики — около 15 минут пешком по лесной дорожке.',
+  am:['Спа','Бассейн','Хаммам','Ресторан','Завтрак','Велосипеды']},
+ {id:10,name:'«Озёрный дом» 4★',place:'Рускеала, Карелия',type:'lake',theme:'dawn',price:12500,rating:4.8,reviews:187,cls:'Бутик-отель 4★',
+  short:'Камин, сауна и утренний туман над водой.',
+  desc:'Небольшой бутик-отель на берегу озера: десять просторных номеров, камин в общем зале, сауна с купелью. Повар готовит авторские завтраки и ужины, по запросу устроит ужин на пирсе.',
+  am:['Камин','Сауна','Завтрак и ужин','Каяки','Пирс','Wi-Fi']},
+ {id:11,name:'«Эдельвейс Резорт» 5★',place:'Домбай, Карачаево-Черкесия',type:'mountain',theme:'day',price:15900,rating:4.8,reviews:402,cls:'Курорт 5★',
+  short:'Спа, бассейн с панорамой гор и ski-in/ski-out.',
+  desc:'Курорт у подножия хребта с выходом на склон прямо от входа. Панорамный бассейн, спа с массажами, два ресторана, детский клуб. Номера и сьюты с камином и балконом на горы.',
+  am:['Ski-in/ski-out','Спа','Панорамный бассейн','Рестораны','Детский клуб','Камин в сьютах']},
+ {id:12,name:'Резорт «Золотой берег» 5★',place:'Сочи, Имеретинская низменность',type:'sea',theme:'sunset',price:18500,rating:4.9,reviews:758,cls:'Курорт 5★',
+  short:'Своя линия пляжа, всё включено и четыре бассейна.',
+  desc:'Большой курорт на первой линии с собственным песчаным пляжем. Четыре бассейна, спа, детская зона, рестораны разных кухонь. Тариф «всё включено» и персональный консьерж помогают не думать ни о чём, кроме отдыха.',
+  am:['Первая линия','Всё включено','4 бассейна','Спа','Консьерж','Детский клуб']},
+ {id:13,name:'Вилла «Лазурь» 5★',place:'Форос, Крым',type:'sea',theme:'day',price:24000,rating:4.9,reviews:96,cls:'Вилла 5★',
+  short:'Частная вилла с бассейном и тропой к морю.',
+  desc:'Отдельный дом на склоне с личным бассейном, садом и террасой над морем. Три спальни, кухня, повар и горничная по запросу. Частная тропа спускается к уединённому пляжу.',
+  am:['Личный бассейн','Три спальни','Повар по запросу','Частный пляж','Сад','Трансфер']}
+];
+const tierOf=p=>p<3000?'eco':p<=9000?'mid':'lux';
+const TIER={eco:{n:'Эконом',r:'до 3 000 ₽',c:'var(--eco)'},mid:{n:'Средний',r:'3 000–9 000 ₽',c:'var(--mid)'},lux:{n:'Люкс',r:'от 9 000 ₽',c:'var(--lux)'}};
+const TYPES={sea:'Море',mountain:'Горы',lake:'Озёра',forest:'Леса'};
+H.forEach(h=>h.tier=tierOf(h.price));
+
+/* ---------- state & render ---------- */
+const st={tier:'all',type:'all',sort:'asc'};
+const $=s=>document.querySelector(s);
+function renderTiers(){
+  const items=[['all','Все',hotelsText(H.length)],...Object.entries(TIER).map(([k,v])=>[k,v.n,`${v.r}, ${H.filter(h=>h.tier===k).length} шт.`])];
+  $('#tiers').innerHTML=items.map(([k,n,c])=>`<button class="tier" type="button" data-t="${k}" aria-pressed="${st.tier===k}"><b>${n}</b><span>${c}</span></button>`).join('');
+}
+function renderGrid(){
+  let list=H.filter(h=>(st.tier==='all'||h.tier===st.tier)&&(st.type==='all'||h.type===st.type));
+  list.sort((a,b)=>st.sort==='asc'?a.price-b.price:st.sort==='desc'?b.price-a.price:b.rating-a.rating);
+  $('#count').textContent=`Найдено: ${list.length}`;
+  $('#grid').innerHTML=list.length?list.map(h=>`
+    <button class="card" type="button" data-id="${h.id}">
+      <span class="pic">${scene(h.type,h.theme,h.id)}<span class="badge" style="--c:${TIER[h.tier].c}">${TIER[h.tier].n}</span><span class="rate" title="Рейтинг ${h.rating.toFixed(1)}, ${reviewsText(h.reviews)}" aria-label="Рейтинг ${h.rating.toFixed(1)}, ${reviewsText(h.reviews)}"><span>★ ${h.rating.toFixed(1)}</span><span class="sep"></span>${CHATW}<span>${h.reviews}</span></span></span>
+      <span class="body">
+        <h3>${h.name}</h3>
+        <span class="place">${h.place}</span>
+        <span class="short">${h.short}</span>
+        <span class="price"><b>${money(h.price)}</b><span>за ночь</span></span>
+      </span>
+    </button>`).join(''):'<p class="empty">Под такие условия отелей нет. Попробуйте другой бюджет или вид отдыха.</p>';
+}
+function renderDest(){
+  const th={sea:['day',3],mountain:['sunset',5],lake:['dawn',7],forest:['dawn',9]};
+  $('#dest').innerHTML=Object.entries(TYPES).map(([k,n])=>{
+    const l=H.filter(h=>h.type===k),min=Math.min(...l.map(h=>h.price));
+    return `<button class="tile" type="button" data-type="${k}">${scene(k,th[k][0],th[k][1]+20)}<span class="cap"><h3>${n}</h3><span>${hotelsText(l.length)}, от ${money(min)} за ночь</span></span></button>`;
+  }).join('');
+}
+
+/* ---------- dialog ---------- */
+const dlg=$('#dlg');
+function open(id){
+  const h=H.find(x=>x.id===id);
+  dlg.innerHTML=`<div class="d-pic">${scene(h.type,h.theme,h.id)}<button class="x" type="button" aria-label="Закрыть">×</button></div>
+  <div class="d-body">
+    <h3 id="d-title">${h.name}</h3>
+    <div class="place">${h.place}. ${h.cls}. Отдых: ${TYPES[h.type].toLowerCase()}.</div>
+    <div class="d-meta">
+      <span class="rev">★ ${h.rating.toFixed(1)}</span>
+      <span class="rev">${CHAT}${reviewsText(h.reviews)}</span>
+    </div>
+    <p>${h.desc}</p>
+    <ul class="chips">${h.am.map(a=>`<li>${a}</li>`).join('')}</ul>
+    <div class="book">
+      <label>Ночей
+        <select id="nights">${Array.from({length:14},(_,i)=>`<option value="${i+1}">${i+1}</option>`).join('')}</select>
+      </label>
+      <div class="tot"><span class="place">${money(h.price)} за ночь. Итого:</span><br><b id="total">${money(h.price)}</b></div>
+      <button class="btn main" type="button" id="bookBtn">Забронировать</button>
+    </div>
+  </div>`;
+  dlg.showModal();
+  $('#nights').onchange=e=>{$('#total').textContent=money(h.price*+e.target.value)};
+  $('#bookBtn').onclick=()=>toast('Это демо-версия: бронирование пока не подключено.');
+}
+dlg.addEventListener('click',e=>{if(e.target===dlg||e.target.closest('.x'))dlg.close()});
+let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),3200)}
+
+/* ---------- events ---------- */
+$('#tiers').addEventListener('click',e=>{const b=e.target.closest('.tier');if(!b)return;st.tier=b.dataset.t;renderTiers();renderGrid()});
+$('#type').onchange=e=>{st.type=e.target.value;renderGrid()};
+$('#sort').onchange=e=>{st.sort=e.target.value;renderGrid()};
+$('#grid').addEventListener('click',e=>{const c=e.target.closest('.card');if(c)open(+c.dataset.id)});
+$('#dest').addEventListener('click',e=>{const t=e.target.closest('.tile');if(!t)return;st.type=t.dataset.type;$('#type').value=st.type;renderGrid();document.getElementById('hotels').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})});
+
+renderTiers();renderGrid();renderDest();
+</script>
+</body>
+</html>
